@@ -1,0 +1,11 @@
+{
+  "name": "battleship",
+  "version": "1.0.0",
+  "description": "A digital version of the famous board game.",
+  "main": "game.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC"
+}
