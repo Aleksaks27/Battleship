@@ -1,0 +1,105 @@
+* {
+    font-family:'Courier New', Courier, monospace;
+}
+
+body {
+    background-color: rgb(255, 255, 210);
+}
+
+h1 {
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 0;
+}
+
+#headings {
+    height: 50px;
+    width: 900px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 0 auto;
+    /* gap: 50px; */
+}
+
+h2 {
+    font-size: 30px;
+}
+
+#boards {
+    height: 450px;
+    width: 900px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 50px;
+    margin: 20px auto;
+}
+
+#player-board, #computer-board {
+    width: 50%;
+    height: 100%;
+    /* border: 2px solid rgb(146, 146, 146); */
+    border: 2px solid rgb(97, 97, 97);
+    padding: 5px;
+    display: grid;
+    gap: 5px;
+    grid-template: repeat(10, 1fr)/repeat(10, 1fr);
+}
+
+#player-board div, #computer-board div {
+    border: 1px solid rgb(70, 182, 70);
+}
+/* .player-square, .computer-square {
+    background-color: rgb(207, 248, 255);
+    border: 1px solid rgb(70, 182, 70);
+} */
+
+.water {
+    background-color: rgb(207, 248, 255);
+}
+
+.ship {
+    background-color: rgb(192, 192, 192);
+}
+
+ship-hidden {
+    background-color: rgb(207, 248, 255);
+}
+
+.hit {
+    background-color: rgb(255, 59, 59);
+}
+
+/* #computer-board .hit {
+    border: 2px solid black;
+} */
+
+.miss {
+    background-color: rgb(93, 187, 204)
+}
+
+p {
+    text-align: center;
+    font-size: 30px;
+}
+
+#computer-board .water:hover {
+    cursor: pointer;
+    background-color: rgb(166, 229, 240);
+    transition: all 0.7 ease;
+    border: 1px solid rgb(0, 0, 0);
+}
+
+#computer-board .hit:hover {
+    cursor: pointer;
+    background-color: rgb(253, 29, 29);
+    transition: all 0.7 ease;
+}
+
+#computer-board .miss:hover {
+    cursor: pointer;
+    background-color: rgb(31, 156, 179);
+    transition: all 0.7 ease;
+    border: 1px solid rgb(0, 0, 0);
+}
