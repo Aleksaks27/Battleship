@@ -1,6 +1,8 @@
-const gameClasses = require('./game');
+// const gameClasses = require('./game');
+import Gameboard from "./gameboard";
+import Player from "./player";
 
-const testBoard = new gameClasses.Gameboard;
+const testBoard = new Gameboard;
 testBoard.placeShip(4, [0, 0], "horizontal")
 
 test("Check that the ship is occupying the correct points", () => {
@@ -27,8 +29,8 @@ test("Check that a ship sinks correctly", () => {
     expect(testBoard.sinkCount).toBe(1);
 })
 
-const testUser = new gameClasses.Player;
-gameClasses.boardSetup(testUser);
+const testUser = new Player;
+testUser.boardSetup();
 
 test("Check that all available ships are added to the board", () => {
     expect(testUser.board.fleet.length).toBe(5);
