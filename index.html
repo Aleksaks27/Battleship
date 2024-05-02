@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battleship</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Battleship</h1>
+    <div id="headings">
+        <div>
+            <h2>You</h2>
+        </div>
+        <div>
+            <h2>Computer</h2>
+        </div>
+    </div>
+    <div id="boards">
+        <div id="player-board"></div>
+        <div id="computer-board"></div>
+    </div>
+    <p id="message">Click a square to fire a shot</p>
+    <button id="restart">Restart Game</button>
+    <dialog id="popup">
+        <h2>Choose your positions carefully</h2>
+        <div id ="intro">
+            <p id="intro-message">Place your carrier</p>
+            <button id="orientation">Horizontal</button>
+        </div>
+        <div id="starting-board"></div>
+        <div id="lower-buttons">
+            <button id="randomise">Random Layout</button>
+            <button id="begin">Begin</button>
+        </div>
+    </dialog>
+    <script src="bundle.js"></script>
+</body>
+</html>
