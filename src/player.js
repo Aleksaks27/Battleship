@@ -5,6 +5,10 @@ class Player {
     constructor(name) {
         this.name = name;
         this.board = new Gameboard;
+        this.adjacent = {
+            vertical: [],
+            horizontal: [],
+        }
     }
     // The function below chooses a ship's orientation randomly. After that, random coordinates
     // are chosen. However that position is only valid if it does not spill off the board or
@@ -77,6 +81,104 @@ class Player {
                     playerBoard.children[Number(String(row) + String(col))].classList.add("miss");
                     playerBoard.children[Number(String(row) + String(col))].classList.remove("water");
                 }
+            }
+            return;
+        }
+    }
+    // The computer first checks the vertical adjacent coordinates, then the horizontal. Once it figures
+    // out the orientation of the ship, it ignores the perpendicular direction. Adjacent cells in the correct direction
+    // are individually checked until no more hits are made. Then, the computer returns to the first hit position
+    // and does the same in the opposite direction. Eventually the ship will be entirely sunk.
+    playTurnSmart(opponent) {
+        if (this.adjacent.vertical.length) {
+            let coordinates = this.adjacent.vertical[0];
+            let row = coordinates[0];
+            let col = coordinates[1];
+            opponent.board.receiveAttack([row, col])
+            if (playerBoard.children[Number(String(row) + String(col))].classList.contains("ship")) {
+                playerBoard.children[Number(String(row) + String(col))].classList.add("hit");
+                playerBoard.children[Number(String(row) + String(col))].classList.remove("ship");
+                this.adjacent.vertical.shift();
+                if (row - 1 >= 0) {
+                    if (opponent.board.board[row - 1][col] !== "H" && opponent.board.board[row - 1][col] !== "M") {
+                        this.adjacent.vertical.unshift([row - 1, col]);
+                    }
+                }
+                if (row + 1 < 10) {
+                    if (opponent.board.board[row + 1][col] !== "H" && opponent.board.board[row + 1][col] !== "M") {
+                        this.adjacent.vertical.push([row + 1, col]);
+                    }
+                }
+                this.adjacent.horizontal = [];
+            }
+            else if (playerBoard.children[Number(String(row) + String(col))].classList.contains("water")) {
+                playerBoard.children[Number(String(row) + String(col))].classList.add("miss");
+                playerBoard.children[Number(String(row) + String(col))].classList.remove("water");
+                this.adjacent.vertical.shift();
+            }
+        }
+        else if (this.adjacent.horizontal.length) {
+            let coordinates = this.adjacent.horizontal[0];
+            let row = coordinates[0];
+            let col = coordinates[1];
+            opponent.board.receiveAttack([row, col])
+            if (playerBoard.children[Number(String(row) + String(col))].classList.contains("ship")) {
+                playerBoard.children[Number(String(row) + String(col))].classList.add("hit");
+                playerBoard.children[Number(String(row) + String(col))].classList.remove("ship");
+                this.adjacent.horizontal.shift();
+                if (col - 1 >= 0) {
+                    if (opponent.board.board[row][col - 1] !== "H" && opponent.board.board[row][col - 1] !== "M") {
+                        this.adjacent.horizontal.unshift([row, col - 1]);
+                   }
+                }
+                if (col + 1 < 10) {
+                    if (opponent.board.board[row][col + 1] !== "H" && opponent.board.board[row][col + 1] !== "M") {
+                        this.adjacent.horizontal.push([row, col + 1]);
+                    }
+                }
+                this.adjacent.vertical = [];
+            }
+            else if (playerBoard.children[Number(String(row) + String(col))].classList.contains("water")) {
+                playerBoard.children[Number(String(row) + String(col))].classList.add("miss");
+                playerBoard.children[Number(String(row) + String(col))].classList.remove("water");
+                this.adjacent.horizontal.shift();
+            }
+        }
+        else {
+            const row = Math.floor(Math.random() * 10);
+            const col = Math.floor(Math.random() * 10);
+            if (opponent.board.board[row][col] === "H" || opponent.board.board[row][col] === "M") {
+                return this.playTurnSmart(opponent);
+            }
+            opponent.board.receiveAttack([row, col])
+            if (playerBoard.children[Number(String(row) + String(col))].classList.contains("ship")) {
+                playerBoard.children[Number(String(row) + String(col))].classList.add("hit");
+                playerBoard.children[Number(String(row) + String(col))].classList.remove("ship");
+                // If the computer makes a successful hit, it stores the adjacent cells for future reference
+                if (row - 1 >= 0) {
+                    if (opponent.board.board[row - 1][col] !== "H" && opponent.board.board[row - 1][col] !== "M") {
+                        this.adjacent.vertical.unshift([row - 1, col]);
+                    }
+                }
+                if (row + 1 < 10) {
+                    if (opponent.board.board[row + 1][col] !== "H" && opponent.board.board[row + 1][col] !== "M") {
+                        this.adjacent.vertical.push([row + 1, col]);
+                    }
+                }
+                if (col - 1 >= 0) {
+                    if (opponent.board.board[row][col - 1] !== "H" && opponent.board.board[row][col - 1] !== "M") {
+                        this.adjacent.horizontal.unshift([row, col - 1]);
+                    }
+                }
+                if (col + 1 < 10) {
+                    if (opponent.board.board[row][col + 1] !== "H" && opponent.board.board[row][col + 1] !== "M") {
+                        this.adjacent.horizontal.push([row, col + 1]);
+                    }
+                }
+            }
+            else if (playerBoard.children[Number(String(row) + String(col))].classList.contains("water")) {
+                playerBoard.children[Number(String(row) + String(col))].classList.add("miss");
+                playerBoard.children[Number(String(row) + String(col))].classList.remove("water");
             }
             return;
         }

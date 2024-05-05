@@ -1,5 +1,7 @@
 import { playerBoard, startingBoard, randomLayout, computer, player } from './game';
 
+// If the user has chosen a random layout, the board and fleet are first erased to ensure no 
+// repetition. Otherwise, the layout chosen at the beginning is applied to the player's board.
 function initialize() {
     computer.boardSetup();
     if (randomLayout) {

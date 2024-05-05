@@ -40,9 +40,8 @@ class Ship {
     isSunk() {
         if (this.hits === this.length) {
             this.sunk = true;
-            if (player.board.fleet.includes(this)) message.textContent = `Ỳour ${this.name} has sunk!`;
+            if (player.board.fleet.includes(this)) message.textContent = `Your ${this.name} has sunk!`;
             else message.textContent = `The computer's ${this.name} has sunk!`;
-            
         }
     }
 }
